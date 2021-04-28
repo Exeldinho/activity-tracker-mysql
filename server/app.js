@@ -11,7 +11,7 @@ const PORT = config.get('port') || 5000;
 const dbConfig = config.get('mySQL.dbConfig');
 
 
-const con = mysql.createConnection ({
+const connection = mysql.createConnection ({
     host: dbConfig.host,
     user: dbConfig.user,
     database: dbConfig.database,
@@ -20,7 +20,7 @@ const con = mysql.createConnection ({
 
 });
 
-con.connect( err => {
+connection.connect( err => {
     if (!err) {
         console.log("mySQL database connected");
     }
@@ -30,23 +30,11 @@ con.connect( err => {
     }
 });
 
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+const activitiesRouter = require('./api-routes/activity.routes');
 
+app.use('/', activitiesRouter)
 
-let query="SELECT * FROM activities";
-con.query(query, (err, result, field) => {
-    console.log(err);
-    console.log(result);
-    //console.log(field);
-    console.log(result[0]['distance'])
-});
+app.listen(PORT, () =>
+    console.log(`Server is running on port ${PORT}`));
 
-con.end(err => { //need to add async await
-    if (err) {
-        console.log(err);
-        return err;
-    }
-    else {
-        console.log("Connection to database closed");
-    }
-});
+module.exports = connection;

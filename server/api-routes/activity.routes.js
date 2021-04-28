@@ -1,8 +1,9 @@
-const router = require('express').Router()
-const Activity = require('../models/activity.model')
+module.exports = app => {
+    const activities = require(".")
+}
 
 router.route('/').get((req, res) => {
-    Activity.find()
+    Activity.findAll()
         .then(activities => res.json(activities))
         .catch(err => res.status(400).json('Error: '+ err))
 });
