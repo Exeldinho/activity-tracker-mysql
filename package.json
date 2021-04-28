@@ -1,0 +1,14 @@
+{
+  "name": "activity-tracker-mysql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Roman Dumanskyi",
+  "license": "ISC",
+  "dependencies": {
+    "eslint": "^7.25.0"
+  }
+}
