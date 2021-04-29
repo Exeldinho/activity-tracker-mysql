@@ -8,16 +8,16 @@ const Activity = function(activity) {
 };
 
 Activity.create = (newActivity, result) => {
-    sql.query("INSERT INTO activities SET ?", newActivity, (err, res) => {
-        if (err) {
-            console.log("error: ", err);
-            result(null, err); //?
-            return;
-        }
-
-        console.log("Activity created with id: ", {id: res.insertId, ...newActivity});
-        result(null, {id: res.insertId, ...newActivity});
-    });
+    return new Promise((resolve, reject) => {
+        sql.query("INSERT INTO activities SET ?", newActivity, (err, results) => {
+            if (err) {
+                console.log("error: ", err);
+                return reject(err);
+            }
+            console.log("Activity created with id: ", { id: results.insertId, ...newActivity });
+            return resolve(result({id: results.insertId, ...newActivity}));
+        });
+    })
 };
 
 Activity.getAll = () => {

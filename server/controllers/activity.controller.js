@@ -1,9 +1,9 @@
 const Activity = require("../models/activity.model");
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
     if (!req.body){
-        res.status(400).send({
-            message: "Content can not be empty!"
+        res.sendStatus(400).send({
+                message: "Content can not be empty!"
         });
     }
 
@@ -14,13 +14,16 @@ exports.create = (req, res) => {
         act_type: req.body.act_type
     });
 
-    Activity.create(activity, (err, data) => {
-        if (err)
-            res.status(500).send ({
+    await Activity.create(activity, (err, data) => {
+        try {
+            res.send(data);
+        }
+        catch (err) {
+            res.sendStatus(500).send({
                 message:
                     err.message || "Error to add new Activity to database"
             });
-        else res.send(data);
+        };
     });
 };
 
