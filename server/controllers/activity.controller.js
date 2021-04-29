@@ -24,13 +24,16 @@ exports.create = (req, res) => {
     });
 };
 
-exports.findAll = (req, res) => {
-    Activity.getAll((err, data) => {
-        if (err)
-            res.status(500).send ({
-                message:
-                    err.message || "Error to get all Activities from database"
-            });
-        else res.send(data);
-    });
+exports.findAll = async (req, res) => {
+    try{
+        let data = await Activity.getAll();
+        res.json(data);
+    }
+    catch (err) {
+        console.log(err);
+        res.sendStatus(500).send({
+            message:
+                err.message || "Error to get all Activities from database"
+        })
+    };
 };

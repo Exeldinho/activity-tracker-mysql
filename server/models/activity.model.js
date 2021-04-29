@@ -11,7 +11,7 @@ Activity.create = (newActivity, result) => {
     sql.query("INSERT INTO activities SET ?", newActivity, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(err, null); //?
+            result(null, err); //?
             return;
         }
 
@@ -20,17 +20,18 @@ Activity.create = (newActivity, result) => {
     });
 };
 
-Activity.getAll = result => {
-    sql.query("SELECT * FROM activities", (err, res) => {
-        if (err) {
-            console.log("error: ", err);
-            result(null, err);
-            return;
-        }
-
-        console.log("activities: ", res);
-        result(null, res);
+Activity.getAll = () => {
+    return new Promise ((resolve, reject) => {
+        sql.query("SELECT * FROM activities", (err, results) => {
+            if (err) {
+                console.log("error: ", err);
+                return reject(err);
+            }
+            console.log("activities: ", results);
+            return resolve(results);
+        });
     });
 };
+
 
 module.exports = Activity;
