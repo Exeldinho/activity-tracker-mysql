@@ -1,6 +1,6 @@
-const sql = require('./db.js');
+const sql = require("../config/db");
 
-const Activity = function (activity) {
+const Activity = function(activity) {
     this.act_start = activity.act_start;
     this.act_finish = activity.act_finish;
     this.distance = activity.distance;
@@ -25,7 +25,7 @@ Activity.getAll = result => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
-            return
+            return;
         }
 
         console.log("activities: ", res);

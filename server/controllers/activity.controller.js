@@ -5,9 +5,9 @@ exports.create = (req, res) => {
         res.status(400).send({
             message: "Content can not be empty!"
         });
-    };
+    }
 
-    const activity = new activity({
+    const activity = new Activity({
         act_start: req.body.act_start,
         act_finish: req.body.act_finish,
         distance: req.body.distance,

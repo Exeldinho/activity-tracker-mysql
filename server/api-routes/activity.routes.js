@@ -1,29 +1,7 @@
 module.exports = app => {
-    const activities = require(".")
-}
+    const activities = require("../controllers/activity.controller");
 
-router.route('/').get((req, res) => {
-    Activity.findAll()
-        .then(activities => res.json(activities))
-        .catch(err => res.status(400).json('Error: '+ err))
-});
+    app.post("/", activities.create);
 
-router.route('/').post((req, res) => {
-    const activityStart = Date.parse(req.body.activityStart)
-    const activityFinish = Date.parse(req.body.activityFinish)
-    const distance = Number(req.body.distance)
-    const activityType = req.body.activityType
-
-    const newActivity = new Activity({
-        activityStart,
-        activityFinish,
-        distance,
-        activityType,
-    });
-
-    newActivity.save()
-        .then(() => res.json('Activity added'))
-        .catch(err => res.status(400).json('Error: '+ err))
-})
-
-module.exports = router
+    app.get("/", activities.findAll);
+};
