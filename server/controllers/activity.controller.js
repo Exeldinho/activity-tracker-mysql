@@ -23,7 +23,7 @@ exports.create = async (req, res) => {
                 message:
                     err.message || "Error to add new Activity to database"
             });
-        };
+        }
     });
 };
 
@@ -38,5 +38,33 @@ exports.findAll = async (req, res) => {
             message:
                 err.message || "Error to get all Activities from database"
         })
-    };
+    }
+};
+
+exports.longest = async (req, res) => {
+    try{
+        let data = await Activity.longest();
+        res.json(data);
+    }
+    catch (err) {
+        console.log(err);
+        res.sendStatus(500).send({
+            message:
+                err.message || "Error to get longest Activities from database"
+        })
+    }
+};
+
+exports.totals = async (req, res) => {
+    try{
+        let data = await Activity.totals();
+        res.json(data);
+    }
+    catch (err) {
+        console.log(err);
+        res.sendStatus(500).send({
+            message:
+                err.message || "Error to get results of total distance from database"
+        })
+    }
 };

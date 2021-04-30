@@ -4,4 +4,8 @@ module.exports = app => {
     app.post("/", activities.create);
 
     app.get("/", activities.findAll);
+
+    app.get("/longest", activities.longest);
+
+    app.get("/totals", activities.totals);
 };

@@ -34,4 +34,31 @@ Activity.getAll = () => {
 };
 
 
+Activity.longest = () => {
+    return new Promise ((resolve, reject) => {
+        sql.query("call longest ('Ride')", (err, results) => {
+            if (err) {
+                console.log("error: ", err);
+                return reject(err);
+            }
+            console.log("activities: ", results);
+            return resolve(results);
+        });
+    });
+};
+
+Activity.totals = () => {
+    return new Promise ((resolve, reject) => {
+        sql.query("call totals ('Ride')", (err, results) => {
+            if (err) {
+                console.log("error: ", err);
+                return reject(err);
+            }
+            console.log("activities: ", results);
+            return resolve(results);
+        });
+    });
+};
+
+
 module.exports = Activity;
