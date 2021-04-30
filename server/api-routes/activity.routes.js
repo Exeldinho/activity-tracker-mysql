@@ -5,7 +5,7 @@ module.exports = app => {
 
     app.get("/", activities.findAll);
 
-    app.get("/longest", activities.longest);
+    app.get("/:longest", activities.longest);
 
-    app.get("/totals", activities.totals);
+    app.get("/:totals", activities.totals);
 };
