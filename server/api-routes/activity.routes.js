@@ -1,11 +1,11 @@
-module.exports = app => {
+module.exports = (app) => {
     const activities = require("../controllers/activity.controller");
 
     app.post("/", activities.create);
 
     app.get("/", activities.findAll);
 
-    app.get("/:longest", activities.longest);
+    app.get("/longest", activities.longest);
 
-    app.get("/:totals", activities.totals);
+    app.get("/totals:aType", activities.totals);
 };

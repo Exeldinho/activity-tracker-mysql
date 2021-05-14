@@ -57,8 +57,8 @@ exports.longest = async (req, res) => {
 
 exports.totals = async (req, res) => {
     try{
-        let data = await Activity.totals();
-        res.json(data);
+        let data = await Activity.totals(req.params.aType);
+        res.send(data);
     }
     catch (err) {
         console.log(err);

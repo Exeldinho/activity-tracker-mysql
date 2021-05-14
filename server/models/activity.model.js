@@ -34,9 +34,9 @@ Activity.getAll = () => {
 };
 
 
-Activity.longest = () => {
+Activity.longest = (activityType) => {
     return new Promise ((resolve, reject) => {
-        sql.query("call longest ('Ride')", (err, results) => {
+        sql.query(`call longest ("${activityType}")`, (err, results) => {
             if (err) {
                 console.log("error: ", err);
                 return reject(err);
@@ -47,9 +47,10 @@ Activity.longest = () => {
     });
 };
 
-Activity.totals = () => {
+Activity.totals = (activityType) => {
     return new Promise ((resolve, reject) => {
-        sql.query("call totals ('Ride')", (err, results) => {
+        console.log("activity type is: " +activityType);
+        sql.query(`call totals ("${activityType}")`, (err, results) => {
             if (err) {
                 console.log("error: ", err);
                 return reject(err);
