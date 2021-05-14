@@ -43,8 +43,7 @@ exports.findAll = async (req, res) => {
 
 exports.count = async (req, res) => {
     try{
-      //  if (req.params.funcType === 'longest' || 'totals') {
-            let data = await Activity.count(req.params.funcType, req.params.activityType);
+            let data = await Activity.count(req.params.procType, req.params.activityType);
             res.json(data);
 
     }
@@ -52,7 +51,7 @@ exports.count = async (req, res) => {
         console.log(err);
         res.sendStatus(500).send({
             message:
-                err.message || "Error to get longest Activities from database"
+                err.message || "Error to get result from database"
         })
     }
 };

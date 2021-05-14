@@ -33,10 +33,10 @@ Activity.getAll = () => {
     });
 };
 
-Activity.count = (funcType, activityType) => {
-    if (funcType === "longest" || funcType === "totals") {
+Activity.count = (procType, activityType) => {
+    if (procType === "longest" || procType === "totals") {
         return new Promise((resolve, reject) => {
-            sql.query(`call ${funcType} ("${activityType}")`, (err, results) => {
+            sql.query(`call ${procType} ("${activityType}")`, (err, results) => {
                 if (err) {
                     console.log("error: ", err);
                     return reject(err);
@@ -46,7 +46,7 @@ Activity.count = (funcType, activityType) => {
             });
         });
     }
-    console.log("Wrong MySQL stored function name");
+    console.log("Wrong MySQL stored procedure name");
 };
 
 module.exports = Activity;

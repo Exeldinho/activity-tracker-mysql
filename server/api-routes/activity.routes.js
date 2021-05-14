@@ -5,5 +5,5 @@ module.exports = (app) => {
 
     app.get("/", activities.findAll);
 
-    app.get("/:funcType/:activityType", activities.count);
+    app.get("/:procType/:activityType", activities.count);
 };
