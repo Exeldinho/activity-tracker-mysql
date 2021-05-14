@@ -41,30 +41,18 @@ exports.findAll = async (req, res) => {
     }
 };
 
-exports.longest = async (req, res) => {
+exports.count = async (req, res) => {
     try{
-        let data = await Activity.longest();
-        res.json(data);
+      //  if (req.params.funcType === 'longest' || 'totals') {
+            let data = await Activity.count(req.params.funcType, req.params.activityType);
+            res.json(data);
+
     }
     catch (err) {
         console.log(err);
         res.sendStatus(500).send({
             message:
                 err.message || "Error to get longest Activities from database"
-        })
-    }
-};
-
-exports.totals = async (req, res) => {
-    try{
-        let data = await Activity.totals(req.params.aType);
-        res.send(data);
-    }
-    catch (err) {
-        console.log(err);
-        res.sendStatus(500).send({
-            message:
-                err.message || "Error to get results of total distance from database"
         })
     }
 };

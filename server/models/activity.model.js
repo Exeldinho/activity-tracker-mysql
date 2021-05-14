@@ -33,33 +33,20 @@ Activity.getAll = () => {
     });
 };
 
-
-Activity.longest = (activityType) => {
-    return new Promise ((resolve, reject) => {
-        sql.query(`call longest ("${activityType}")`, (err, results) => {
-            if (err) {
-                console.log("error: ", err);
-                return reject(err);
-            }
-            console.log("activities: ", results);
-            return resolve(results);
+Activity.count = (funcType, activityType) => {
+    if (funcType === "longest" || funcType === "totals") {
+        return new Promise((resolve, reject) => {
+            sql.query(`call ${funcType} ("${activityType}")`, (err, results) => {
+                if (err) {
+                    console.log("error: ", err);
+                    return reject(err);
+                }
+                console.log("activities: ", results);
+                return resolve(results);
+            });
         });
-    });
+    }
+    console.log("Wrong MySQL stored function name");
 };
-
-Activity.totals = (activityType) => {
-    return new Promise ((resolve, reject) => {
-        console.log("activity type is: " +activityType);
-        sql.query(`call totals ("${activityType}")`, (err, results) => {
-            if (err) {
-                console.log("error: ", err);
-                return reject(err);
-            }
-            console.log("activities: ", results);
-            return resolve(results);
-        });
-    });
-};
-
 
 module.exports = Activity;
