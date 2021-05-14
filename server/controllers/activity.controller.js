@@ -45,7 +45,6 @@ exports.count = async (req, res) => {
     try{
             let data = await Activity.count(req.params.procType, req.params.activityType);
             res.json(data);
-
     }
     catch (err) {
         console.log(err);
