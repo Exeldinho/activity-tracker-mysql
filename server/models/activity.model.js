@@ -1,4 +1,7 @@
 const sql = require("../config/db");
+const config = require('config');
+
+const DB_PROC = config.get('dbStoredProcedures');
 
 const Activity = function(activity) {
     this.act_start = activity.act_start;
@@ -34,17 +37,19 @@ Activity.getAll = () => {
 };
 
 Activity.count = (procType, activityType) => {
-    if (procType === "longest" || procType === "totals") {
-        return new Promise((resolve, reject) => {
-            sql.query(`call ${procType} ("${activityType}")`, (err, results) => {
-                if (err) {
-                    console.log("error: ", err);
-                    return reject(err);
-                }
-                console.log("activities: ", results);
-                return resolve(results);
+    for (let i=0; i < DB_PROC.length; i++) {
+        if (procType === DB_PROC[i]) {
+            return new Promise((resolve, reject) => {
+                sql.query(`call ${procType} ("${activityType}")`, (err, results) => {
+                    if (err) {
+                        console.log("error: ", err);
+                        return reject(err);
+                    }
+                    console.log("activities: ", results);
+                    return resolve(results);
+                });
             });
-        });
+        }
     }
     console.log("Wrong MySQL stored procedure name");
 };
