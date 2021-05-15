@@ -28,7 +28,7 @@ exports.create = async (req, res) => {
 };
 
 exports.findAll = async (req, res) => {
-    try{
+    try {
         let data = await Activity.getAll();
         res.json(data);
     }
@@ -42,7 +42,7 @@ exports.findAll = async (req, res) => {
 };
 
 exports.count = async (req, res) => {
-    try{
+    try {
             let data = await Activity.count(req.params.procType, req.params.activityType);
             res.json(data);
     }

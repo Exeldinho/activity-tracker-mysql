@@ -19,15 +19,15 @@ export default class Form extends Component {
         }
     }
 
-     onChangeActivityStart (date) {
+    onChangeActivityStart(e) {
         this.setState ({
-            activityStart: date
+            activityStart: e.target.value
             })
      }
 
-    onChangeActivityFinish (date) {
+    onChangeActivityFinish (e) {
         this.setState ({
-            activityFinish: date
+            activityFinish: e.target.value
         })
     }
 
@@ -43,23 +43,18 @@ export default class Form extends Component {
         })
     }
 
-
     onSubmit (e) {
         e.preventDefault()
 
         const activity = {
-            act_start: "18:00:00",
-            act_finish: "18:59:00",
-            distance: 0.2,
-            act_type: "Walk"
+             act_start: this.state.activityStart,
+             act_finish: this.state.activityFinish,
+             distance: this.state.distance,
+             act_type: this.state.activityType
         }
 
-           // act_start: this.state.activityStart,
-           // act_finish: this.state.activityFinish,
-          //  distance: this.state.distance,
-          //  act_type: this.state.activityType
 
-        axios.post('http://localhost:5000/', activity)
+            axios.post('http://localhost:5000/', activity)
             .then (res => {
                 this.setState({
                     activityStart: '',
@@ -68,34 +63,37 @@ export default class Form extends Component {
                     activityType: ''
                 })
             })
+
         window.location.reload(true)
+
     }
     render() {
         return (
-            <div className="form">
+            <div>
                 <form onSubmit={this.onSubmit}>
-                    <div className="form-inline">
+                    <div>
                         <label>Add new activity:</label>
 
-                        <div className="col-auto">
-                            <input className="form-group"
-                                        type="time"
+                        <div>
+                            <input
+                                        type=""
                                         onChange={this.onChangeActivityStart}
+                                        value={this.state.activityStart}
                             />
                         </div>
 
-                        <div className="col-auto">
-                            <input className="form-group"
-                                        type="time"
+                        <div >
+                            <input
+                                        type=""
                                         onChange={this.onChangeActivityFinish}
+                                        value={this.state.activityFinish}
                             />
                         </div>
 
-                        <div className="col-auto">
+                        <div>
                             <input
                                 type="text"
                                 size="5"
-                                className="form-group"
                                 value={this.state.distance}
                                 onChange={this.onChangeDistance}
                                 placeholder="Distance"
@@ -103,8 +101,8 @@ export default class Form extends Component {
                             />
                         </div>
 
-                        <div className="col-auto">
-                            <select className = "form-group" onChange={this.onChangeActivityType}>
+                        <div>
+                            <select onChange={this.onChangeActivityType}>
                                 <option selected disabled>Select activity type</option>
                                 <option value="Run">Run</option>
                                 <option value="Ride">Ride</option>
@@ -114,24 +112,14 @@ export default class Form extends Component {
                             </select>
                         </div>
 
-                        <div className="col-auto">
+                        <div>
                             <input
                                 type="submit"
                                 value="Save"
-                                className="btn btn-primary form-group"
                             />
                         </div>
                     </div>
                 </form>
-                <div className="row">
-                    <div className="col-md-8">
-                        RecentActivities
-                    </div>
-                    <div className="col-md-4">
-                        Achievements
-                        Totals
-                    </div>
-                </div>
             </div>
         )
     }

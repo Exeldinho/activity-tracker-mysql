@@ -6,13 +6,19 @@ class App extends React.Component {
     render() {
         return (
             <div className="container">
-                <header className="align-middle" >Activity tracker</header>
+                <header>Activity tracker</header>
             <Form/>
+            <div>
+                RecentActivities
+            </div>
+            <div >
+                Achievements
+            </div>
+                Totals
             </div>
         );
 
     };
 }
-
 
 export default App;
